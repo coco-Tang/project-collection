@@ -1,0 +1,15 @@
+<div class="common-modal">
+  <div class="modal-content">
+    <div class="message">
+      <p class="price-text">
+        请输入单价
+        <a class="change-count" (click)="gotoAjustList()">变更数量</a>
+      </p>
+      <div class="count-input-wrap">
+        <span class="mark">¥</span>
+        <ion-input type="text" [(ngModel)]="navData.price"></ion-input>
+      </div>
+    </div>
+    <button ion-button class="btn-confirm" [disabled]="requesting" (click)="confirm()">确定</button>
+  </div>
+</div>

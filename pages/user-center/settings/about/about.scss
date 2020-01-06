@@ -1,0 +1,34 @@
+page-about {
+  .about-container {
+    color: #2e3039;
+    text-align: center;
+    img {
+      width: 22%;
+      margin: 26% auto 18px;
+    }
+    .version {
+      font-size: 14px;
+    }
+    .enterprise {
+      position: absolute;
+      bottom: 38px;
+      width: 100%;
+      font-size: 12px;
+    }
+    .enterprise-English {
+      position: absolute;
+      bottom: 26px;
+      width: 100%;
+      font-size: 10px;
+    }
+  }
+  .server-config-wrap {
+    padding: 36px;
+    p {
+      word-break: break-all;
+    }
+    span {
+      color: $color-danger;
+    }
+  }
+}

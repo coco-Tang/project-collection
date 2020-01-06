@@ -1,0 +1,68 @@
+page-enterprise-list {
+  $borderColor: #ebecf1;
+  .enterprise-list {
+    .enterprise-item {
+      padding: 0 19px 0 20px;
+      &.item-block {
+        border-bottom: none;
+        .item-inner {
+          border-bottom: 1px solid $borderColor;
+          padding-top: 20px;
+          padding-bottom: 20px;
+          .content {
+            width: 100%;
+            .top-content {
+              position: relative;
+              height: 20px;
+              .enterprise-name {
+                font-size: 14px;
+                color: #2E3039;
+                width: 80%;
+              }
+              .status {
+                font-size: 14px;
+                position: absolute;
+                right: 8px;
+                top: 0;
+                &.unpass {
+                  color: #EA4C89;
+                }
+              }
+            }
+            .middle-content {
+              min-height: 20px;
+              padding-top: 20px;
+              box-sizing: content-box;
+              position: relative;
+              .failure-reason {
+                width: 75%;
+                color: #868A98;
+                font-size: 12px;
+                display: block;
+              }
+              .operation {
+                position: absolute;
+                right: 8px;
+                top: 20px;
+                color: #2F7BFF;
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .btn-wrap {
+    box-shadow: 0 0 8px 0 #EBECF1;
+    padding: 14px 19px 15px 20px;
+    button {
+      width: 100%;
+      height: 44px;
+      border-radius: 4px;
+    }
+  }
+  .footer-md::before {
+    height: 0;
+  }
+}

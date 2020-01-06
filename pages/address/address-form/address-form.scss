@@ -1,0 +1,46 @@
+page-add-address {
+  .profile-list {
+    .profile-item {
+      &:first-child {
+        border: none;
+      }
+      &:last-child {
+        border: none;
+        div:first-child {
+          border-bottom: 1px solid #ebecf1;
+        }
+        a {
+          margin-right: 24px;
+          font-size: 14px;
+          color: #657D95;
+        }
+        div:first-child {
+          background-size: 10px 10px;
+          border-bottom: 1px solid #ebecf1;
+          margin-right: 18px;
+          padding-right: 11px;
+          div:first-child {
+            border-bottom: none;
+            &>:first-child {
+              margin: 21px 8px 21px 13px;
+              font-size: 14px;
+              color: #2E3039;
+            }
+          }
+        }
+        .submit-address {
+          position: fixed;
+          bottom: 16px;
+          width: 90%;
+          margin-left: 5%;
+          box-shadow: none;
+          border-radius: 4px;
+          font-size: 14px;
+          &>span:first-child {
+            padding: 6px 0;
+          }
+        }
+      }
+    }
+  }
+}

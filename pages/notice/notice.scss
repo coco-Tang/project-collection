@@ -1,0 +1,64 @@
+page-notice {
+  $fontColor1: #242e42;
+  $fontColor2: #657d95;
+  $fontColor3: #2e3039;
+  $borderColor: #ebecf1;
+  .content-notice {
+    .item-block:first-child {
+      border-top: none;
+    }
+    .item-block:last-child {
+      border-bottom: 1px solid $borderColor;
+    }
+    .list {
+      padding: 0 17.5px 0 18px;
+    }
+    .item-warp {
+      min-height: 75px;
+      padding: 0;
+      .item-inner {
+        border-bottom: 1px solid $borderColor;
+        padding-right: 0;
+        .label-md,
+        .label-ios {
+          margin: 0;
+        }
+        img {
+          width: 48px;
+          height: 48px;
+          float: left;
+          border-radius: 50%;
+          margin-right: 6px;
+        }
+      }
+      .item-desc {
+        display: flex;
+        .item-name {
+          display: inline-block;
+          text-overflow: ellipsis;
+          flex-grow: 1;
+        }
+        .name {
+          font-size: 12px;
+          color: $fontColor1;
+        }
+        .company {
+          font-size: 12px;
+          color: $fontColor2;
+        }
+        .date {
+          flex-grow: 0;
+          float: right;
+          font-size: 10px;
+          color: $fontColor2;
+          margin-top: 4px;
+        }
+      }
+      .message {
+        font-size: 12px;
+        color: $fontColor3;
+        margin-top: 15px;
+      }
+    }
+  }
+}

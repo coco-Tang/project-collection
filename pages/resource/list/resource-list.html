@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content-resource-list" no-bounce>
+  <ion-refresher (ionRefresh)="doRefresh()" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+
+  <div class="common-empty-block" *ngIf="totalPage === 0">
+    <img src="assets/imgs/empty-page.png">
+    <span>还没有商家呢～</span>
+  </div>
+
+  <ion-item class="item-wrap common-resource-item-wrap" [navPush]="detailPage" [navParams]="item" *ngFor="let item of resourceList">
+    <div class="clearfix">
+      <ul class="item-start">
+        <li>
+          <span class="category-name">{{item.chineseName}}</span>
+          <span class="brand-name">{{item.trademarkName}}</span>
+        </li>
+        <li class="resource-tag-wrap">
+          <span class="resource-tag" *ngIf="item.manufacturerName">{{item.manufacturerName}}</span>
+          <span class="resource-tag" *ngFor="let type of transactionType" [hidden]="item.transactionType != type.id">
+            {{type.value}}
+          </span>
+        </li>
+      </ul>
+      <ul class="item-end">
+        <li class="price">¥{{item.price}} / {{item.uom}}</li>
+        <li class="price-text">参考报价</li>
+      </ul>
+    </div>
+    <div class="user-info-wrap clearfix">
+      <img class="user-picture" [src]="item.logo? item.logo : 'assets/imgs/user.png'">
+      <span class="user-name">{{item.userName}}&nbsp;·</span>
+      <span class="company-name">&nbsp;{{item.enterpriseName}}</span>
+    </div>
+  </ion-item>
+
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

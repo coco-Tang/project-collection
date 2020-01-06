@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="closeCityPicker()" tappable>
+        <i class="iconfont icon-close"></i>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      选择货物所在地
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="present-location-wrap">
+    <span class="text">当前位置</span>
+    <div class="clearfix">
+      <span class="present-location" (click)="selectCity(currentLocation)" tappable>{{currentLocation.provinceName}}</span>
+      <span class="set-location" float-right (click)="getGeolocation()" tappable>重新定位</span>
+    </div>
+  </div>
+
+  <div class="search-history-wrap" *ngIf="citySearchHistory.length > 0">
+    <span class="text">最近选择城市</span>
+    <ul class="search-history">
+      <li *ngFor="let item of citySearchHistory" (click)="selectCity({provinceCode: item.provinceCode, provinceName: item.provinceName})"
+        tappable>{{item.provinceName}}</li>
+    </ul>
+  </div>
+
+  <div class="city-wrap" *ngFor="let item of cityList">
+    <span class="text">{{item.initial}}</span>
+    <ul class="city-list" *ngFor="let row of item.areaInfoVO">
+      <li (click)="selectCity({provinceCode: row.provinceCode, provinceName: row.aliasName})" tappable>{{row.aliasName}}</li>
+    </ul>
+  </div>
+
+</ion-content>

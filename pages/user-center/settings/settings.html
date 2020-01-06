@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      设置
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="user-setting-content" no-bounce>
+  <ion-list class="list">
+    <ion-item class="item" [navPush]="AboutPage">
+      <span class="label">关于</span>
+      <i class="iconfont icon-angle-right"></i>
+    </ion-item>
+    <ion-item class="item" (click)="logoutAlert()">
+      退出登录
+    </ion-item>
+  </ion-list>
+</ion-content>

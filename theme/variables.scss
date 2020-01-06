@@ -1,0 +1,131 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+// Font path is used to include ionicons,
+// roboto, and noto sans fonts
+$font-path: "../assets/fonts";
+// The app direction is used to include
+// rtl styles in your app. For more info, please see:
+// http://ionicframework.com/docs/theming/rtl-support/
+$app-direction: ltr;
+@import "ionic.globals";
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/theming/overriding-ionic-variables/
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+$colors: ( primary: #2F7BFF, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222);
+$color-default-black: #111;
+$color-default-gray: #666;
+$color-primary: #2F7BFF;
+$color-danger: #f15a24;
+$color-loading: #b9c3c8;
+$fontsize-default-title: 16px;
+$fontsize-default-subtitle: 15px;
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+@import "ionic.theme.default";
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/ionicons/
+@import "ionic.ionicons";
+@import "./layout";
+// Fonts
+// --------------------------------------------------
+@import "roboto";
+@import "noto-sans";
+@import "./layout.scss";
+@import "./componment.scss";
+// 公共样式
+$toolbar-background: #2F7BFF;
+// input去除高亮颜色
+$text-input-ios-highlight-color: none;
+$text-input-ios-highlight-color-valid: none;
+$text-input-ios-highlight-color-invalid: none;
+$text-input-md-highlight-color: none;
+$text-input-md-highlight-color-valid: none;
+$text-input-md-highlight-color-invalid: none;
+//input clear icon
+$text-input-md-input-clear-icon-svg: "<svg width='16px' height='16px' viewBox='0 0 16 16' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><title>Combined Shape</title><desc>Created with Sketch.</desc> <defs></defs> <g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'> <g id='Group-2' transform='translate(8.000000, 8.000000) rotate(-315.000000) translate(-8.000000, -8.000000)' fill='#D1D8DF'><g id='Group-4'><path d='M7,7 L3.66666667,7 L3,7 L3,9 L3.66666667,9 L7,9 L7,12.3333333 L7,13 L9,13 L9,12.3333333 L9,9 L12.3333333,9 L13,9 L13,7 L12.3333333,7 L9,7 L9,3.66666667 L9,3 L7,3 L7,3.66666667 L7,7 Z M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z' id='Combined-Shape'></path></g></g></g></svg>";
+$text-input-ios-input-clear-icon-svg: "<svg width='16px' height='16px' viewBox='0 0 16 16' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><title>Combined Shape</title><desc>Created with Sketch.</desc> <defs></defs> <g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'> <g id='Group-2' transform='translate(8.000000, 8.000000) rotate(-315.000000) translate(-8.000000, -8.000000)' fill='#D1D8DF'><g id='Group-4'><path d='M7,7 L3.66666667,7 L3,7 L3,9 L3.66666667,9 L7,9 L7,12.3333333 L7,13 L9,13 L9,12.3333333 L9,9 L12.3333333,9 L13,9 L13,7 L12.3333333,7 L9,7 L9,3.66666667 L9,3 L7,3 L7,3.66666667 L7,7 Z M8,16 C3.581722,16 0,12.418278 0,8 C0,3.581722 3.581722,0 8,0 C12.418278,0 16,3.581722 16,8 C16,12.418278 12.418278,16 8,16 Z' id='Combined-Shape'></path></g></g></g></svg>";
+$text-input-md-input-clear-icon-size: 16px;
+$text-input-ios-input-clear-icon-size:16px;
+// toast框样式
+$toast-max-width: 214px;
+$toast-ios-title-color: #acacac;
+$toast-md-title-color: #acacac;
+// 下拉刷新
+$refresher-height: 100%;
+$refresher-text-color: $color-loading;
+$refresher-icon-color: $color-loading;
+$refresher-icon-font-size: 20px;
+$refresher-text-font-size: 14px;
+// loding
+$loading-ios-spinner-ios-color:$color-loading;
+$loading-md-spinner-ios-color:$color-loading;
+// 加载更多
+$infinite-scroll-loading-color:$color-loading;
+$infinite-scroll-loading-text-color:$color-loading;
+$infinite-scroll-loading-margin-top: 20px;
+//tab
+$tabs-md-tab-text-transform-active: none;
+$tabs-md-tab-icon-transform-x-active: 0;
+$tabs-md-tab-icon-transform-y-active: 0;
+$tabs-md-tab-icon-transform-z-active: 0;
+// 更换tab图标
+.ion-tab-icon-base {
+  width: 36px;
+  height: 36px;
+  padding: 4px 4px 2px;
+}
+
+.ion-tab-icon-md-base {
+  height: 27px;
+  width: 26px;
+}
+
+$tabImageName: 'home' 'notice' 'user' 'partner';
+@for $i from 1 to 5 {
+  //for ios  
+  .ion-ios-tab-#{nth($tabImageName, $i)} {
+    @extend .ion-tab-icon-base;
+    content: url("../assets/imgs/tabs/tab-#{nth($tabImageName, $i)}-on.png");
+  }
+  .ion-ios-tab-#{nth($tabImageName, $i)}-outline {
+    @extend .ion-tab-icon-base;
+    content: url("../assets/imgs/tabs/tab-#{nth($tabImageName, $i)}-off.png");
+  } // for android  
+  .tabs-md .tab-button[aria-selected=true] {
+    .ion-md-tab-#{nth($tabImageName, $i)} {
+      @extend .ion-tab-icon-md-base;
+      content: url("../assets/imgs/tabs/tab-#{nth($tabImageName, $i)}-on.png");
+    }
+  }
+  .tabs-md .tab-button[aria-selected=false] {
+    .ion-md-tab-#{nth($tabImageName, $i)} {
+      @extend .ion-tab-icon-md-base;
+      content: url("../assets/imgs/tabs/tab-#{nth($tabImageName, $i)}-off.png");
+    }
+  }
+}

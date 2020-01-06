@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      账户信息
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-list class="profile-list" *ngIf='userInfo'>
+    <ion-item class="profile-item">
+      头像
+      <img class="user-logo" [src]="userInfo.logo || 'assets/imgs/user.png'" item-end>
+    </ion-item>
+    <ion-item class="profile-item">
+      用户名
+      <a item-end>{{userInfo.userName}}</a>
+    </ion-item>
+    <ion-item class="profile-item">
+      手机号
+      <a item-end>{{userInfo.mobile}}</a>
+    </ion-item>
+    <ion-item class="profile-item">
+      业务邮箱
+      <a item-end>{{userInfo.email || ''}}</a>
+    </ion-item>
+    <button ion-item class="profile-item" [ngStyle]="{'background-color':buttonColor}" (click)="getEnterpriseList()">
+      我的企业
+      <a item-end *ngIf="userInfo.enterpriseNum > 1">多家</a>
+      <i class="iconfont icon-angle-right"></i>
+    </button>
+  </ion-list>
+</ion-content>

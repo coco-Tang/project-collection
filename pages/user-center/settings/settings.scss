@@ -1,0 +1,48 @@
+page-settings {
+  .user-setting-content {
+    background-color: #F2F5F8;
+    .list {
+      margin-top: 21px;
+      .item {
+        height: 5.4rem;
+        line-height: 5.4rem;
+        font-size: 14px;
+        color: #2E3039;
+        padding: 0;
+        border: none;
+        margin-bottom: 22px;
+        .label {
+          margin-left: 28px;
+        }
+        .right-text {
+          float: right;
+          margin-right: 8px;
+        }
+        i {
+          float: right;
+          font-size: 14px;
+          color: rgba(153, 153, 153, 0.4);
+          height: 5.4rem;
+          line-height: 5.4rem;
+          margin-right: 28px;
+        }
+        &:last-child {
+          text-align: center;
+        }
+        &>div {
+          padding-right: 0;
+          border-top: 1px solid #E6ECF1;
+          &:first-child {
+            border-bottom: none;
+          }
+          &>div {
+            border-bottom: 1px solid #E6ECF1;
+            &>:first-child {
+              margin: 14px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

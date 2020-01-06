@@ -1,0 +1,27 @@
+page-tabs {
+  .common-tabs {
+    .tabbar {
+      background-color: #fff;
+      box-shadow: 0 0 8px 0 #EBECF1;
+      border-top: none;
+    }
+    .tabbar.show-tabbar::before {
+      height: 0;
+    }
+  }
+  .tabbar {
+    // height: 54px;
+    padding-top: 2px;
+    .tab-button {
+      min-height: 54px;
+      ion-icon.tab-button-icon {
+        height: 36px;
+        margin: 0 0 -5px;
+      }
+      .tab-button-text {
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+}

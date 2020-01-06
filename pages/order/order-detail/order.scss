@@ -1,0 +1,104 @@
+page-order {
+  $color: #2E3039;
+  .toolbar-background {
+    background: #fff;
+  }
+  .back-button {
+    color: $color;
+  }
+  .toolbar-title {
+    color: $color;
+  }
+  .enquiry-detail-resource {
+    background-color: #fff;
+    color: #2F7BFF;
+    font-size: 1.7rem;
+  }
+  .order-detail {
+    .order-detail-list {
+      margin: 0 18px;
+      .order-detail-item {
+        padding: 18.5px 5px 0;
+        border-bottom: 1px solid #EBECF1;
+        &:first-child {
+          border-top: none;
+        }
+        div:first-child {
+          border: none;
+          div {
+            border: none;
+            &>:first-child {
+              margin: 0 0 19.5px 0
+            }
+          }
+        }
+      }
+      ion-col,
+      ion-grid {
+        padding: 0;
+      }
+      .detail-row-up {
+        margin: 7px 0 16px 0;
+        padding-left: 6px;
+        .order-detail-name {
+          color: $color;
+          font-size: 24px;
+          white-space: normal;
+        }
+        .order-detail-price {
+          color: $color;
+          font-size: 14px;
+          text-align: right;
+          margin-top: 4px;
+        }
+      }
+      .detail-row-down {
+        height: 18px;
+        line-height: 17px;
+        padding-left: 6px;
+        color: #657D95;
+        font-size: 10px;
+        [col-10] {
+          span {
+            margin-right: 10px;
+            padding: 0 4px;
+            background-color: #F2F5F8;
+            border-radius: 2px;
+            border: 1px solid #E6ECF1;
+            display: inline-block;
+            height: 18px;
+            line-height: 18px;
+          }
+        }
+        [col-2] {
+          font-size: 12px;
+          text-align: right;
+        }
+      }
+      .rows {
+        ion-col {
+          padding-left: 6px;
+        }
+        .label {
+          margin-bottom: 9px;
+          color: #B9C3C8;
+          font-size: 10px;
+        }
+        .value {
+          color: #2E3039;
+          font-size: 12px;
+          white-space: normal;
+        }
+      }
+      button {
+        height: 44px;
+        margin: 45.5px auto 16px;
+        font-size: 14px;
+        &:disabled {
+          opacity: 1;
+          background-color: #868A98;
+        }
+      }
+    }
+  }
+}

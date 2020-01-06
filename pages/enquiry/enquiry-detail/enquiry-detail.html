@@ -1,0 +1,128 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+    </ion-title>
+    <ion-buttons end>
+      <button clear *ngIf="enquiryDetail" class="enquiry-detail-resource" [navPush]="resourceDetailPage" [navParams]="enquiryDetail">
+        资源详情
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="enquiry-detail" no-bounce>
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+  <ion-list class="enquiry-detail-list" *ngIf="!isLoading && enquiryDetail">
+    <ion-item class="enquiry-detail-item">
+      <ion-grid>
+        <ion-row class="detail-row-up">
+          <ion-col col-8 class="enquiry-detail-name auto-cut-word-two-line">
+            {{enquiryDetail.goodsCateName}}
+          </ion-col>
+          <ion-col col-4 class="enquiry-detail-price">￥{{enquiryDetail.price}}/{{enquiryDetail.uomStr}}</ion-col>
+        </ion-row>
+        <ion-row class="detail-row-down">
+          <ion-col col-10>
+            <span>{{enquiryDetail.trademarkName}}</span>
+            <span>现货</span>
+          </ion-col>
+          <ion-col col-2>卖家报价</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="enquiry-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col>
+            <p class="label">购买数量</p>
+            <p class="value">{{enquiryDetail.quantity}}{{enquiryDetail.uomStr}}</p>
+          </ion-col>
+          <ion-col>
+            <p class="label">商品单价</p>
+            <p class="value">￥{{enquiryDetail.price}}/{{enquiryDetail.uomStr}}</p>
+          </ion-col>
+          <ion-col>
+            <p class="label">商品总价</p>
+            <p class="value">￥{{enquiryDetail.quantity*enquiryDetail.price}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <!-- <ion-item class="enquiry-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col>
+            <p class="label">{{deliveryDateLabel}}期限</p>
+            <p class="value">{{enquiryDetail.deliveryDateStart|date}} - {{enquiryDetail.deliveryDateEnd|date}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item> -->
+
+    <ion-item class="enquiry-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col>
+            <p class="label">付款方式</p>
+            <p class="value">{{payType}}</p>
+          </ion-col>
+          <ion-col>
+            <p class="label">提货方式</p>
+            <p class="value">{{deliveryMethodType}}</p>
+          </ion-col>
+          <ion-col>
+            <ng-container *ngIf="ifShowCargoAddress">
+              <p class="label">仓库名称</p>
+              <p class="value">{{enquiryDetail.cargoAddressName}}</p>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="enquiry-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col>
+            <p class="label">{{ifShowCargoAddress?'仓库所在地':'收获地址'}}</p>
+            <p class="value">{{detailAddressName}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="enquiry-detail-item" *ngIf="enquiryDetail.userName || enquiryDetail.mobile">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col col-4 *ngIf="enquiryDetail.userName">
+            <p class="label">联系人</p>
+            <p class="value">{{enquiryDetail.userName}}</p>
+          </ion-col>
+          <ion-col *ngIf="enquiryDetail.mobile">
+            <p class="label">联系方式</p>
+            <p class="value">{{enquiryDetail.mobile}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="enquiry-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col col-8>
+            <p class="label">买家</p>
+            <p class="value">{{enquiryDetail.buyerEntName}}</p>
+          </ion-col>
+          <ion-col col-4 *ngIf='enquiryDetail.deliveryTimes'>
+            <p class="label">提货期限</p>
+            <p class="value">{{enquiryDetail.deliveryTimes}}天</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <button ion-button block [disabled]="disabled" (click)="gotoOrder()">{{submitText}}</button>
+  </ion-list>
+</ion-content>

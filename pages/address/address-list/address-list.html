@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>配送选项</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="address-content" no-bounce>
+  <div class="common-loading-block" *ngIf="!loadDateDown">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+  <div class="empty-address" *ngIf="loadDateDown && (!addressList || !addressList.length)">
+    <img src="assets/imgs/no-address.png">
+    <p>请前往PC端添加地址</p>
+    <button (click)="goTabs()">返回首页</button>
+  </div>
+  <ion-list class="address-list" *ngIf="loadDateDown && addressList && addressList.length > 0">
+    <ion-item class="address-list-item" *ngFor="let item of addressList" (click)="gotoEnquiryPage(item)">
+      <div class="address-list-content">
+        <span>收货人：{{item.deliveryPerson}}</span>
+        <span>{{item.mobile}}</span>
+      </div>
+      <div class="address-list-content">
+        <ion-icon class="location" name="pin"></ion-icon>
+        <span>收货地址：{{item.detailAddress}}</span>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

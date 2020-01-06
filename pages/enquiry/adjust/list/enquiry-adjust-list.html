@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="enquiry-adjust-list-content">
+  <ion-spinner class="common-requesting-loading" *ngIf="requesting" name="ios"></ion-spinner>
+  <ion-list>
+    <button class="list-item" *ngIf="operationId != buyerOperation.agree" (click)="goAdjust(toPage.quantity)" ion-item>
+      销售数量
+      <span class="text-end" item-end>{{params.quantity}}{{params.uom}}</span>
+    </button>
+    <button class="list-item" *ngIf="operationId != buyerOperation.agree" (click)="goAdjust(toPage.price)" ion-item>
+      单价
+      <span class="text-end" item-end>¥ {{params.price}}</span>
+    </button>
+  </ion-list>
+</ion-content>
+
+<ion-footer class="enquiry-adjust-list-footer">
+  <div>
+    <button ion-button class="btn-confirm" (click)="confirm()" [disabled]="requesting">确定</button>
+  </div>
+</ion-footer>

@@ -1,0 +1,31 @@
+page-common-dialog {
+  background-color: rgba(0, 0, 0, .3);
+  .common-modal {
+    width: 58%;
+    background-color: #fff;
+    margin: 50% auto;
+    border-radius: 10px;
+    .message {
+      color: #2E3039;
+      text-align: left;
+      width: 76%;
+      margin: 36px auto 30px;
+      line-height: 26px;
+      img {
+        width: 48px;
+        height: 48px;
+        margin-top: -24px;
+        margin-left: 36%;
+        border-radius: 50%;
+      }
+    }
+    .btn-confirm {
+      height: 4.2rem;
+      margin: 0;
+      width: 100%;
+      border-radius: 0 0 10px 10px;
+      font-size: 14px;
+      box-shadow: none;
+    }
+  }
+}

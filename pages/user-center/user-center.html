@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      我
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content" no-bounce>
+
+  <ion-refresher (ionRefresh)="doRefresh()" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+
+  <div class="common-empty-block" *ngIf="requestFailure && !isLoading">
+    <img src="assets/imgs/empty-page.png">
+    <span>暂无数据</span>
+  </div>
+
+  <ng-container *ngIf="!requestFailure && !isLoading">
+    <ion-list class="user-center-up">
+      <button class="button-up" ion-item (click)="goMyInfo()">
+        <ion-avatar item-start class="avator">
+          <img [src]="userInfo.logo || 'assets/imgs/user.png'">
+        </ion-avatar>
+        <h2>{{userInfo.userName}}</h2>
+        <p *ngIf="userInfo.enterpriseNum > 1 || userInfo.enterpriseNum === 0">{{userInfo.enterpriseNum}}家企业</p>
+        <p *ngIf="userInfo.enterpriseNum === 1">{{userInfo.enterprise[0].enterpriseName}}</p>
+        <i class="iconfont icon-angle-right"></i>
+      </button>
+    </ion-list>
+    <div class="user-center-middle">
+      <button ion-item class="button margin-section order" [navPush]="orderListPush">
+        订单管理
+        <i class="iconfont icon-angle-right"></i>
+      </button>
+    </div>
+    <ion-list class="user-center-down">
+      <button ion-item class="button">
+        <a href="tel:{{customerCall}}" item-end>
+          <span>联系客服</span>
+          <span>{{customerCall}}</span>
+        </a>
+        <i class="iconfont icon-angle-right"></i>
+      </button>
+      <button ion-item class="button" [navPush]="SettingsPage">
+        设置
+        <i class="iconfont icon-angle-right"></i>
+      </button>
+    </ion-list>
+  </ng-container>
+</ion-content>

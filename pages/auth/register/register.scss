@@ -1,0 +1,59 @@
+page-register {
+  .scroll-content {
+    -webkit-overflow-scrolling: auto;
+  }
+  .register-form {
+    background-color: #fff;
+  }
+  .register-list {
+    padding: 0 18px;
+    .item-wrap {
+      padding-left: 0;
+      height: 60px;
+      &:last-child {
+        border-bottom-color: #EBECF1;
+      }
+      .item-inner {
+        border-bottom-color: #EBECF1;
+        .label {
+          color: #2E3039;
+          font-size: 14px;
+          width: 54px;
+          margin-left: 10px;
+        }
+        .input {
+          font-size: 14px;
+          .text-input {
+            padding-right: 0;
+            &::-webkit-input-placeholder {
+              color: #CFCFD1;
+            }
+          }
+        }
+        .btn-get-code {
+          height: 27px;
+        }
+      }
+    }
+    .tips {
+      color: #657D95;
+      font-size: 12px;
+      margin: 0 12px;
+      height: 56px;
+      span {
+        display: inline-block;
+        margin-top: 6px;
+      }
+    }
+  }
+  .footer {
+    .go-login {
+      color: $color-primary;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    &::before {
+      height: 0;
+    }
+  }
+}

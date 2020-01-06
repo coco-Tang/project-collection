@@ -1,0 +1,52 @@
+page-follow {
+  .header {
+    .toolbar {
+      border-bottom: 4px solid #F2F5F8;
+      height: 48px;
+      .toolbar-background {
+        background: #fff;
+        border: none;
+      }
+      .title {
+        .toolbar-title {
+          color: #2E3039;
+        }
+      }
+      .btn-confirm {
+        font-size: 1.6rem;
+        color: #2F7BFF;
+      }
+      .btn-show-confirm {
+        color: #868A98;
+      }
+    }
+  }
+  .content-follow {
+    .category-item {
+      .label {
+        margin: 14px 0 18px;
+      }
+      .item-inner {
+        border-bottom: 1px solid #EBECF1;
+      }
+      .category-name {
+        font-size: 16px;
+        color: #242E42;
+      }
+      .category-count {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #657D95;
+      }
+      .btn-follow {
+        padding: 12px 13px;
+        background-color: #fff;
+        transition: all .5s;
+      }
+    }
+  }
+  .isDisabled {
+    color: #868A98;
+    border-color: #868A98;
+  }
+}

@@ -1,0 +1,58 @@
+.download-modal {
+  ion-backdrop {
+    visibility: visible;
+  }
+  ion-content {
+    background: #fff;
+    border-radius: 2px;
+  }
+  .modal-wrapper {
+    border-radius: 2px;
+    background: #fff;
+    width: 280px;
+    height: 100px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .update-process-container {
+    width: 200px;
+    height: 100px;
+    padding-top: 18px;
+    margin: auto;
+    .update-process-title {
+      font-size: 14px;
+      font-weight: normal;
+      color: black;
+    }
+    .update-process-bar-container {
+      width: 200px;
+      height: 4px;
+      background: #dedede;
+      margin: 12px 0 10px;
+      border-radius: 10px;
+      position: relative;
+      .update-process-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0px;
+        background: $color-primary;
+      }
+    }
+    .btn-wrap {
+      .btn-install {
+        float: right;
+        height: 25px;
+        text-align: center;
+        color: $color-primary;
+        background: #fff;
+        font-size: 14px;
+      }
+    }
+  }
+}

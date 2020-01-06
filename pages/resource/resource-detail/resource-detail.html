@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="detail-content" no-bounce>
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+  <ion-list class="detail-list" *ngIf="!isLoading">
+    <ion-item class="head">
+      <ion-grid>
+        <ion-row class="resource-name-row">
+          <ion-col col-6 class="rec-name">{{resource.resourceVO.goodsCateName}}</ion-col>
+          <ion-col col-6 class="rec-price">￥{{resource.resourceVO.price}}/{{resource.resourceVO.uomStr}}</ion-col>
+        </ion-row>
+        <ion-row class="resource-tips-row">
+          <ion-col col-10>
+            <span *ngIf="resource.resourceVO.trademarkName">{{resource.resourceVO.trademarkName}}</span>
+            <span *ngIf="resource.resourceVO.canSellNum">{{resource.resourceVO.canSellNum}}{{resource.resourceVO.uomStr}}</span>
+            <span *ngIf="resource.resourceVO.transactionType">{{transactionType[resource.resourceVO.transactionType].value}}</span>
+            <span *ngIf="resource.resourceVO.storeName">{{resource.resourceVO.storeName}}</span>
+          </ion-col>
+          <ion-col col-2>参考报价</ion-col>
+        </ion-row>
+        <ion-row class="resource-time-row">
+          <ion-col col-12>
+            <span class="effect-time">{{resourceInfo.effectTime}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="salor">
+      <ion-avatar class="salor-Img" item-start>
+        <img [(src)]="logo">
+      </ion-avatar>
+      <h2>{{resource.concactPerson.userName}}</h2>
+      <p>{{resource.concactPerson.enterpriseName}}</p>
+    </ion-item>
+    <!-- 资源详情 -->
+    <ion-item class="detail">
+      <h2>资源详情</h2>
+      <ul>
+        <li *ngIf="resourceInfo.qualityUrl">
+          <span class="circle"></span>
+          <span class="quality-report" (click)="showReporter()">【查看品质单】</span>
+        </li>
+        <li *ngFor="let item of resource.skuProperty.parameter" [hidden]="item.key == undefined">
+          <span class="circle"></span>
+          <span>{{item.key}}：</span>
+          <span class="item-value">{{item.value}}</span>
+        </li>
+        <li *ngIf="resourceInfo.storeName">
+          <span class="circle"></span>
+          <span>仓库名称：</span>
+          <span class="item-value">{{resourceInfo.storeName}}</span>
+        </li>
+        <li *ngIf="resourceInfo.storePlaceStr">
+          <span class="circle"></span>
+          <span>仓库所在地：</span>
+          <span class="item-value">{{resourceInfo.storePlaceStr}}</span>
+        </li>
+      </ul>
+    </ion-item>
+    <!-- 交易属性 -->
+    <ion-item class="detail">
+      <h2>交易属性</h2>
+      <ul>
+        <li>
+          <span class="circle"></span>可售量：{{resourceInfo.canSellNum}}{{resourceInfo.uomStr}}
+        </li>
+        <li>
+          <span class="circle"></span>最小起订量：{{resourceInfo.minNumLimit}}{{resourceInfo.uomStr}}
+        </li>
+        <li>
+          <span class="circle"></span>最小发货量：{{resourceInfo.minDelivery}}{{resourceInfo.uomStr}}
+        </li>
+        <li>
+          <span class="circle"></span>最小递增值：{{resourceInfo.singlePurchaseUnit}}{{resourceInfo.uomStr}}
+        </li>
+        <li>
+          <span class="circle"></span>货期：{{transactionType[resourceInfo.transactionType].value}}
+        </li>
+        <li *ngIf="resourceInfo.earliestDeliveryTime && resourceInfo.lastDeliveryTime">
+          <span class="circle"></span>交货时间： {{resourceInfo.earliestDeliveryTime}} - {{resourceInfo.lastDeliveryTime}}
+        </li>
+        <li *ngIf="resourceInfo.deliveryTimes">
+          <span class="circle"></span>提货期限： {{resourceInfo.deliveryTimes}}天
+        </li>
+      </ul>
+    </ion-item>
+    <ion-item class="buy-tips">
+      <h2>购买须知</h2>
+      <div class="tips" *ngFor="let item of resource.resourceVO.deliveryMode ? resource.resourceVO.deliveryMode : []">
+        <span *ngFor="let mode of deliveryMode" [hidden]="item != mode.id">
+          <ion-icon class="iconfont icon-check"></ion-icon>
+          可{{mode.value}}
+        </span>
+      </div>
+      <div class="tips" *ngFor="let item of resource.qualificationVOs ? resource.qualificationVOs : []">
+        <ion-icon class="iconfont icon-check"></ion-icon>
+        {{item.qualificationName}}
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+<ion-footer>
+  <div class="asking-wrap">
+    <button ion-button block class="asking" (click)="goAsking()" *ngIf="isVaild && !isLoading">立即咨询</button>
+    <button ion-button block class="asking btn-timeout" *ngIf="!isVaild && isOperation && !isLoading">该资源已过期</button>
+    <button ion-button block class="asking btn-timeout" *ngIf="!isOperation && !isLoading">非交易时间</button>
+  </div>
+</ion-footer>

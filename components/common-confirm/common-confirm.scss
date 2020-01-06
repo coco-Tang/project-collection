@@ -1,0 +1,37 @@
+page-common-confirm {
+  background-color: rgba(0, 0, 0, .3);
+  .common-modal {
+    width: 70%;
+    background-color: #fff;
+    margin: 70% auto;
+    border-radius: 10px;
+    .message {
+      color: #2E3039;
+      text-align: center;
+      padding: 30px 0 25px 0;
+      p {
+        margin: 0;
+      }
+    }
+    .footer {
+      overflow: hidden;
+      border-top: 1px solid #ebecf1;
+      button {
+        float: left;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+        width: 50%;
+        font-size: 14px;
+        border: none;
+        &.cancel {
+          border-radius: 0px 0px 0px 10px;
+        }
+        &.confirm {
+          border-left: 1px solid #ebecf1;
+          border-radius: 0px 0px 10px 0px;
+        }
+      }
+    }
+  }
+}

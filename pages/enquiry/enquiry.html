@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title class="enquiry-title">
+      {{title}}
+    </ion-title>
+    <ion-buttons end class="enquriy-confirm">
+      <button ion-button clear *ngIf="step === 0 || step === 1" (click)="confirm()">确定</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<div class="common-request-loading" *ngIf="requestLoading">
+  <ion-spinner class="loading" name="ios"></ion-spinner>
+</div>
+
+<ion-content class="enquiry-content" no-bounce>
+  <div class="enquiry-tips">
+    <span *ngFor="let enquiryTip of enquiryTips">{{enquiryTip}}</span>
+  </div>
+
+  <section class="count section" *ngIf="step === 0">
+    <p>请输入购买数量（单位：{{navData.resourceVO.uomStr}}）</p>
+    <i class="iconfont icon-reduce" (click)="reduceQuantity()"></i>
+    <input type="number" [(ngModel)]="quantity" (blur)="autoCalcQuantity()">
+    <i class="iconfont icon-plus" (click)="addQuantity()"></i>
+  </section>
+
+  <section class="price section" *ngIf="step === 1">
+    <p>然后填写每{{navData.resourceVO.uomStr}}期望价格（货币：¥）</p>
+    <input type="number" [(ngModel)]="price">
+  </section>
+
+  <section class="pay-types section option-wrap" *ngIf="step === 2">
+    <p>然后选择支付方式</p>
+    <div *ngFor="let paymentMethod of navData.resourceVO.payModeList">
+      <ion-item *ngFor="let payMethod of paymentMethods" [hidden]="paymentMethod != payMethod.id" (click)="checkPaymentMethod(payMethod.id,payMethod.value)">
+        {{payMethod.value}}
+      </ion-item>
+    </div>
+  </section>
+
+  <section class="enterprises section option-wrap" *ngIf="step === 3">
+    <p>然后选择购买企业</p>
+    <ion-item [hidden]="this.enterprises.enterpriseNum === 0 || requestFailed" *ngFor="let enterprise of enterprises.enterprise"
+      (click)="checkEnterprise(enterprise.enterpriseId,enterprise.enterpriseName)">
+      {{enterprise.enterpriseName}}
+    </ion-item>
+    <div class="no-enterprise" *ngIf="this.enterprises.enterpriseNum === 0 || requestFailed">
+      <img src="assets/imgs/empty-page.png">
+
+      <button *ngIf="requestFailed && !reloadEnterprise" (click)="getEnterprise()">刷新</button>
+      <ion-spinner *ngIf="reloadEnterprise" class="loading" name="circles"></ion-spinner>
+
+      <p *ngIf="!requestFailed">暂无合格企业资质,请前往PC端查看</p>
+      <button *ngIf="!requestFailed" (click)="goTabs()">返回首页</button>
+    </div>
+  </section>
+
+  <section class="deliveryModes section option-wrap" *ngIf="step === 4">
+    <p>然后选择物流方式</p>
+    <div *ngFor="let item of navData.resourceVO.deliveryMode">
+      <ion-item *ngFor="let deliveryMode of deliveryModes" [hidden]="item != deliveryMode.id" (click)="checkDeliveryMode(deliveryMode.id,deliveryMode.value)">
+        {{deliveryMode.value}}
+      </ion-item>
+    </div>
+  </section>
+
+  <section class="transportations section option-wrap" *ngIf="step === 5">
+    <p>然后选择配送方式</p>
+    <div *ngFor="let item of navData.resourceVO.shippingMethods">
+      <ion-item *ngFor="let transportation of transportations" [hidden]="item != transportation.id" (click)="checkTransportation(transportation.id,transportation.value)">
+        {{transportation.value}}
+      </ion-item>
+    </div>
+  </section>
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      消息
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content no-bounce class="content-notice">
+  <ion-refresher (ionRefresh)="doRefresh()" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="common-loading-block" *ngIf="isLoading && !refreshing">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+
+  <div class="common-empty-block" *ngIf="noticeList.list.length === 0 && !isLoading">
+    <img src="assets/imgs/empty-page.png">
+    <span class="tips-home">暂无任何消息</span>
+  </div>
+
+  <ion-list>
+    <ion-item class="item-warp" *ngFor="let item of noticeList.list" [navPush]="chatPage" [navParams]="item">
+      <img [src]="item.url ? item.url : 'assets/imgs/user.png'">
+
+      <p class="item-desc">
+        <span class="auto-cut-word-two-line item-name">
+          <span class="name">{{item.userName}}</span>
+          <span class="company">·&nbsp;{{item.enterpriseName}}</span>
+        </span>
+
+        <span class="date">{{item.displayDate}}</span>
+      </p>
+
+      <p class="message">{{item.message}}</p>
+
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

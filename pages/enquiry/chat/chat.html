@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce class="content-chat" scrollDownOnLoad="true">
+
+  <ion-refresher (ionRefresh)="doRefresh()" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+
+  <ion-spinner class="common-requesting-loading" *ngIf="requesting" name="ios"></ion-spinner>
+
+  <!-- 资源信息展示 -->
+  <ion-item class="item-wrap common-resource-item-wrap clearfix" *ngIf="!isLoading" tappable [navPush]="resourceDetailPage"
+    [navParams]="{'resourceId':chatList.resourceTO.resourceId}">
+    <ul class="item-start">
+      <li>
+        <span class="category-name">
+          {{chatList.resourceTO.goodsCateName}}
+          <span class="brand-name">{{chatList.resourceTO.trademarkName}}</span>
+        </span>
+      </li>
+      <li class="resource-tag-wrap">
+        <span class="resource-tag" *ngIf="chatList.resourceTO.manufacturerName">{{chatList.resourceTO.manufacturerName}}</span>
+        <span class="resource-tag" *ngFor="let type of transactionType" [hidden]="chatList.resourceTO.transactionType != type.id">
+          {{type.value}}
+        </span>
+      </li>
+    </ul>
+    <ul class="item-end">
+      <li class="price">¥{{chatList.resourceTO.price}} / {{chatList.resourceTO.uomStr}}</li>
+      <li class="price-text">参考报价</li>
+    </ul>
+  </ion-item>
+
+  <!-- 聊天内容 -->
+  <ul class="chat-list" *ngIf="!isLoading">
+    <li class="chat-item" *ngFor="let item of chatList.dialogueDetailListTOs">
+      <p class="time">{{item.createTime}}</p>
+      <div class="left-wrap clearfix" *ngIf="userId != item.memberId">
+        <img class="user-picture" [src]="item.memberHead? item.memberHead : 'assets/imgs/user.png'">
+        <span class="chat-details" *ngIf="item.remark">{{item.remark}}</span>
+      </div>
+      <div class="right-wrap clearfix" *ngIf="userId == item.memberId">
+        <img class="user-picture" [src]="item.memberHead? item.memberHead : 'assets/imgs/user.png'">
+        <span class="chat-details" *ngIf="item.remark">{{item.remark}}</span>
+      </div>
+    </li>
+    <!-- 买家报价 -->
+    <li class="operation-wrap operation-seller" *ngIf="!chatList.close">
+      <!-- 卖家调整报价、同意 -->
+      <button [disabled]="requesting" ion-button outline class="btn btn-adjust-price" *ngIf="chatList.buttonType && chatList.buttonType.indexOf(operations.ADJUST_AN_OFFER) != -1"
+        (click)="goAdjustListPage(buyerOperation.adjust)">调整报价</button>
+      <button [disabled]="requesting" ion-button (click)="goAdjustListPage(buyerOperation.agree)" class="btn btn-agree-price" *ngIf="chatList.buttonType && chatList.buttonType.indexOf(operations.AGREE) != -1">同意</button>
+      <!-- 卖家报价 -->
+      <button [disabled]="requesting" ion-button (click)="goAdjustListPage(buyerOperation.quote)" class="btn btn-quote" *ngIf="chatList.buttonType && chatList.buttonType.indexOf(operations.OFFER) != -1">报价</button>
+    </li>
+    <!-- 买家同意或拒绝 -->
+    <li class="operation-wrap operation-buyer" *ngIf="!chatList.close">
+      <button [disabled]="requesting" ion-button (click)="buyerReject()" outline class="btn reject-price" *ngIf="chatList.buttonType && chatList.buttonType.indexOf(operations.UNPASS) != -1">拒绝</button>
+      <button [disabled]="requesting" ion-button [navPush]="enquiryDetailPage" [navParams]="operationParams" class="btn agree-go-order"
+        *ngIf="chatList.buttonType && chatList.buttonType.indexOf(operations.AGREE_AND_PLACE_ORDERS) != -1">同意并下单</button>
+    </li>
+    <!-- 订单信息展示 -->
+    <li class="order-info-wrap" *ngIf="chatList.dialogueDetailListTO && !isLoading" (click)='gotoDetail()' tappable>
+      <ion-item class="item-wrap common-resource-item-wrap clearfix">
+        <img src="assets/imgs/home/arrow-right-primary.png" class="arrow-right-icon">
+        <ul class="item-start">
+          <li>
+            <span class="category-name">{{chatList.resourceTO.goodsCateName}}
+              <span class="brand-name">{{chatList.resourceTO.trademarkName}}</span>
+            </span>
+          </li>
+          <li class="resource-tag-wrap">
+            <span class="resource-tag" *ngIf="chatList.resourceTO.manufacturerName">{{chatList.resourceTO.manufacturerName}}</span>
+            <span class="resource-tag" *ngFor="let type of transactionType" [hidden]="chatList.resourceTO.transactionType != type.id">
+              {{type.value}}
+            </span>
+          </li>
+        </ul>
+        <ul class="item-end">
+          <li class="price">¥{{chatList.dialogueDetailListTO.price}} / {{chatList.dialogueDetailListTO.uom}}</li>
+          <li class="price-text">商品单价</li>
+        </ul>
+      </ion-item>
+    </li>
+    <!-- 已结束提示 -->
+    <li class="finished" *ngIf="chatList.close">———————— 已结束 ————————</li>
+  </ul>
+
+</ion-content>

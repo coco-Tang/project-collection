@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      我的企业
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-refresher (ionRefresh)="doRefresh($event)" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngIf="loadDone; else loadingBlock">
+    <ion-list class="enterprise-list">
+      <ion-item class="enterprise-item" *ngFor="let item of items" (click)="gotoCreateEnterprise(item)">
+        <div item-content class="content">
+          <div class="top-content">
+            <div class="enterprise-name">{{item.enterpriseName}}</div>
+            <div class="status" [ngClass]="{'unpass': item.status == 'UNPASS'}">{{item.statusStr}}</div>
+          </div>
+          <div class="middle-content" *ngIf='item.operation || item.auditRemark'>
+            <span class="failure-reason" *ngIf='item.auditRemark'>{{item.auditRemark? '失败原因：'+ item.auditRemark:''}}</span>
+            <span class="operation" *ngIf='item.operation'>{{item.operation}}</span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-template #loadingBlock>
+    <div class="common-loading-block">
+      <ion-spinner class="loading" name="ios"></ion-spinner>
+    </div>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <div class="btn-wrap">
+    <button ion-button [navPush]='protocolPush' [navParams]="{sourcePage:'enterpriseList'}">创建企业</button>
+  </div>
+</ion-footer>

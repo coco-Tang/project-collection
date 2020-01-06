@@ -1,0 +1,22 @@
+<ion-content no-bounce>
+  <ng-container *ngIf="versionInfo">
+    <div class="modal-container">
+      <img src="./assets/imgs/update.png">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p>最新版本：{{versionInfo.code}}</p>
+        </div>
+        <div>
+          <p>更新内容：</p>
+          <div class="modal-text">
+            <p class="update-content" [innerHtml]="versionInfo['contents']"></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer clearfix" [ngClass]="{'need-update':versionInfo['isForceUpdate'] === 'Y'}">
+        <button ion-button color="light" class="btn-cancel" (click)="dismiss()" outline *ngIf="versionInfo['isForceUpdate'] === 'N'">稍后</button>
+        <button ion-button color="light" (click)="download()" outline>{{updateText}}</button>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>

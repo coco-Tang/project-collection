@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{enterpriseName}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-refresher (ionRefresh)="doRefresh($event)" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngIf="loadDone || isInfinite; else loadingBlock">
+    <ng-container *ngIf="productsArr.length>0; else emptyBlocks">
+      <ion-list class="product-list">
+        <ion-item class="product-item" *ngFor="let item of productsArr" [navPush]="resourceDetailPush" [navParams]="{resourceId: item.resourceId}">
+          <div class="item-top">
+            <span class="category-name auto-cut-word-line">{{item.goodsCateName}}</span>
+            <span class="cate-name auto-cut-word-line">{{item.trademarkName}}</span>
+            <span class="price">¥{{item.price+"/"+item.uomName}}</span>
+          </div>
+
+          <div class="item-middle">
+            <span class="product-name" *ngIf="item.manufacturerName">{{item.manufacturerName}}</span>
+            <span class="can-sell-num">{{item.cansellNum+item.uomName}}</span>
+            <span class="supply-method">{{item.transactionType}}</span>
+            <span class="store">{{item.storeName}}</span>
+            <span class="price-given">参考报价</span>
+          </div>
+
+          <div class="item-bottom">
+            <img [src]="item.logo || 'assets/imgs/user.png'">
+            <span class="user-name  auto-cut-word-line">{{item.userName}}</span>
+            <span class="point">·</span>
+            <span class="enterprise-name auto-cut-word-line">{{item.enterpriseName}}</span>
+            <span class="limit-time">{{item.effectTime ?"距结束:"+item.effectTime : "已失效"}}</span>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyBlocks>
+    <div class="common-empty-block">
+      <img src="assets/imgs/empty-page.png">
+      <span>暂无商品</span>
+    </div>
+  </ng-template>
+  <ng-template #loadingBlock>
+    <div class="common-loading-block">
+      <ion-spinner class="loading" name="ios"></ion-spinner>
+    </div>
+  </ng-template>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

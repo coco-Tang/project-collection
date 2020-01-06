@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>关于</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <div class="about-container">
+    <img src="assets/imgs/logo.png">
+    <p class="version">版本：{{currVersion}}</p>
+    <p class="enterprise">中化能源科技有限公司</p>
+    <p class="enterprise-English">Sinochem Energy Technology Co., Ltd.</p>
+  </div>
+
+  <div *ngIf="serverConfig.ENV != 'production'" class="server-config-wrap">
+    <p>base_url：
+      <span>{{serverConfig.BASE_URL}}</span>
+    </p>
+    <p>当前环境：
+      <span>{{serverConfig.ENV}}</span>
+    </p>
+  </div>
+</ion-content>

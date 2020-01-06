@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start class="btn-back">
+      <button ion-button back-button icon-only (click)="close()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      {{renderInfo.title}}
+    </ion-title>
+    <ion-buttons end class="btn-confirm">
+      <button ion-button clear (click)="confirm()">确定</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="enquiry-adjust-content">
+  <section class="adjust-wrap">
+    <p>{{renderInfo.tips}}</p>
+    <ion-input class="input" type="number" [(ngModel)]="params.price" maxLength="9" *ngIf="toPage.price == params.toPage"></ion-input>
+    <ion-input class="input" type="number" [(ngModel)]="params.quantity" maxLength="8" *ngIf="toPage.quantity == params.toPage"></ion-input>
+  </section>
+</ion-content>

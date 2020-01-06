@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ion-title class="title">
+      推荐关注
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button clear class="btn-confirm" (click)="confirmFollow()" [disabled]="disableBtn">确定</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content-follow">
+
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+
+  <ion-item class="category-item" *ngFor="let item of categoryParams.list; index as i" [hidden]="!item.isShow">
+    <div>
+      <span class="category-name">{{item.goodsCateName}}</span>
+      <p class="category-count ">供应商{{item.trademarkCount}}家</p>
+    </div>
+    <button ion-button outline item-end class="btn-follow" (click)="toggleFollow(item.attentionId, item.goodsCateId, item.isAttention, i)"
+      [disabled]="item.isAttention === followState.followDisabled" [ngClass]="{'isDisabled': item.isAttention === followState.followDisabled || item.isAttention === followState.followed}">
+      {{item.isAttention === followState.followed ? '已关注': item.isAttention === followState.followDisabled ? '已关注' : '关注'}}
+    </button>
+  </ion-item>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite()">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+</ion-content>

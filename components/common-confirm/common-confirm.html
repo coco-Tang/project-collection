@@ -1,0 +1,12 @@
+<div class="common-modal">
+  <div class="modal-content">
+    <div class="message">
+      <img *ngIf="logo" [(src)]="logo">
+      <p class="price-text">{{message}}</p>
+    </div>
+    <div class="footer">
+      <button ion-button outline (click)="cancel()" class="cancel">取消</button>
+      <button ion-button outline (click)="confirm()" class="confirm">确定</button>
+    </div>
+  </div>
+</div>

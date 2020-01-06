@@ -1,0 +1,37 @@
+page-enquiry-adjust-list {
+  .enquiry-adjust-list-content {
+    .list-item.item {
+      border-bottom: none;
+    }
+    .list {
+      padding: 0 18px;
+      .list-item {
+        font-size: 12px;
+        color: #2E3039;
+        border-bottom: 1px solid #EBECF1;
+        padding-left: 6px;
+        .label {
+          color: #2E3039;
+        }
+        .item-inner {
+          border-bottom: none;
+          background-size: 10px 10px;
+          background-position: right 6px center;
+          padding-right: 16px;
+        }
+        .text-end {
+          color: #657D95;
+        }
+      }
+    }
+  }
+  .enquiry-adjust-list-footer {
+    height: 75px;
+    box-shadow: 0 0 8px 0 #EBECF1;
+    text-align: center;
+    .btn-confirm {
+      width: 90%;
+      margin-top: 15px;
+    }
+  }
+}

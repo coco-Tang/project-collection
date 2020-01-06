@@ -1,0 +1,40 @@
+page-partner {
+  $borderColor: #ebecf1;
+  .enterprise-list {
+    padding-top: 2.5px;
+    .enterprise-name {
+      height: 32px;
+      line-height: 32px;
+      font-size: 14px;
+      color: #2E3039;
+      max-width: 100%;
+      float: left;
+    }
+    .enterprise-item {
+      padding-top: 4px;
+      padding-left: 18.5px;
+      padding-right: 17.5px;
+      img {
+        height: 32px;
+        width: 32px;
+        float: left;
+      }
+      .item-inner {
+        border-bottom: 1px solid $borderColor;
+        padding: 0 7.5px;
+      }
+      &:first-child {
+        border-top: none;
+      }
+      &:last-child {
+        border-bottom: none;
+        .item-inner {
+          border-bottom: 1px solid $borderColor;
+        }
+      }
+      .label {
+        margin: 16.5px 0;
+      }
+    }
+  }
+}

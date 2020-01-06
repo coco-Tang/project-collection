@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      创建企业
+    </ion-title>
+    <ion-buttons end *ngIf="loadDone">
+      <button ion-button type="button" (click)="registerConfirm('WAIT')" [disabled]="this.enterpriseForm.invalid || !enterpriseObj.enterpriseProtocalFileId || !enterpriseObj.creditFileId || requesting">
+        确定
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content [ngClass]="{'disable-move':disableMoveEvent}">
+  <ng-container *ngIf="loadDone; else loadingBlock">
+    <div class="user-section auto-cut-word-line">
+      <div class="contact-name">{{ enterpriseObj.contactName }}</div>
+      <div class="contact-mobile">{{enterpriseObj.contactMobile }}</div>
+    </div>
+    <form class="enterprise-form" [formGroup]="enterpriseForm" novalidate>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('enterpriseName').invalid && enterpriseForm.get('enterpriseName').dirty}">
+        <ion-label stacked>
+          企业名称
+        </ion-label>
+        <ion-input placeholder="必填" type="text" clearInput='true' formControlName="enterpriseName" required maxlength='30'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('legalName').invalid && enterpriseForm.get('legalName').dirty}">
+        <ion-label stacked>
+          法人代表
+          <span *ngIf="enterpriseForm.get('legalName').hasError('pattern') && enterpriseForm.get('legalName').dirty">请与营业执照保持一致</span>
+        </ion-label>
+        <ion-input placeholder="必填" type="text" clearInput='true' maxlength='20' formControlName="legalName"></ion-input>
+      </ion-item>
+      <ion-item class="common-section">
+        <ion-label stacked>
+          企业类型
+        </ion-label>
+        <div item-content class="section-content">
+          <div class="btn-wrap" *ngFor="let item of enterpriseService.ENTERPRISE_TYPE">
+            <button type="button" ion-button outline [ngClass]="{'select-color':item.id == enterpriseObj.enterpriseType}" (click)="getEnterpriseType(item)">{{item.value}}</button>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('registerAddress').invalid && enterpriseForm.get('registerAddress').dirty}">
+        <ion-label stacked>
+          企业注册地址
+        </ion-label>
+        <ion-input placeholder="必填" type="text" clearInput='true' maxlength='40' formControlName="registerAddress"></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('creditCode').invalid && enterpriseForm.get('creditCode').dirty}">
+        <ion-label stacked>
+          统一社会信用代码
+          <span *ngIf="enterpriseForm.get('creditCode').hasError('pattern') && enterpriseForm.get('creditCode').dirty">请输入正确的社会信用代码</span>
+        </ion-label>
+        <ion-input placeholder="必填" type="text" formControlName="creditCode" clearInput='true' maxlength='18'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('fax').invalid && enterpriseForm.get('fax').dirty}">
+        <ion-label stacked>
+          传真/座机
+          <span *ngIf="enterpriseForm.get('fax').hasError('pattern') && enterpriseForm.get('fax').dirty">请输入正确的内容</span>
+        </ion-label>
+        <ion-input placeholder="选填" maxlength='20' type="text" formControlName="fax" clearInput='true'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('email').invalid && enterpriseForm.get('email').dirty}">
+        <ion-label stacked>
+          邮箱账号
+          <span *ngIf="enterpriseForm.get('email').hasError('pattern') && enterpriseForm.get('email').dirty">您填写的电子邮件有误</span>
+        </ion-label>
+        <ion-input placeholder="选填" maxlength='30' formControlName="email" type="email" clearInput='true'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('billingBankName').invalid && enterpriseForm.get('billingBankName').dirty}">
+        <ion-label stacked>
+          开票银行
+          <span *ngIf="enterpriseForm.get('billingBankName').hasError('pattern') && enterpriseForm.get('billingBankName').dirty">您填写的开户银行格式不正确</span>
+        </ion-label>
+        <ion-input placeholder="必填" type="text" maxlength='50' formControlName="billingBankName" clearInput='true'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('billingBankAccount').invalid && enterpriseForm.get('billingBankAccount').dirty}">
+        <ion-label stacked>
+          开户银行账号
+          <span *ngIf="enterpriseForm.get('billingBankAccount').hasError('pattern') && enterpriseForm.get('billingBankAccount').dirty">您填写的银行账号格式不正确</span>
+        </ion-label>
+        <ion-input placeholder="必填" type="text" formControlName="billingBankAccount" maxlength='40' clearInput='true'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('contactTelephone').invalid && enterpriseForm.get('contactTelephone').dirty}">
+        <ion-label stacked>
+          开票电话
+          <span *ngIf="enterpriseForm.get('contactTelephone').hasError('pattern') && enterpriseForm.get('contactTelephone').dirty">请输入正确的电话格式</span>
+        </ion-label>
+        <ion-input placeholder="必填" maxlength='20' type="text" formControlName="contactTelephone" clearInput='true'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':enterpriseForm.get('invoiceAddress').invalid && enterpriseForm.get('invoiceAddress').dirty}">
+        <ion-label stacked>
+          开票地址
+        </ion-label>
+        <ion-input placeholder="必填" maxlength='30' formControlName="invoiceAddress" clearInput='true'></ion-input>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':!hasCreditFile}">
+        <ion-label stacked>
+          营业执照
+          <span *ngIf='!hasCreditFile'>请上传营业执照</span>
+        </ion-label>
+        <div item-content class="section-content">
+          <div class="file" [hidden]='enterpriseObj.creditFileId' tappable (click)="presentActionSheet(enterpriseService.FILE_TYPE.entLic, 'creditFileId','creditFilePath','hasCreditFile')">
+            <i class="iconfont icon-icon-add"></i>
+            添加营业执照（必填）
+          </div>
+          <div [hidden]='!enterpriseObj.creditFileId' class="file business-file">
+            <img [src]="enterpriseObj.creditFilePath" (click)="showImg(enterpriseObj.creditFilePath)" tappable>
+            <i class="iconfont icon-clear" (click)="clearUpload('creditFileId','creditFilePath','hasCreditFile')"></i>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="common-section" [ngClass]="{'error-notice':!hasProtocalFile}">
+        <ion-label stacked>
+          授权书
+          <span *ngIf='!hasProtocalFile'>请上传授权书</span>
+        </ion-label>
+        <div item-content class="section-content">
+          <div class="file" [hidden]='enterpriseObj.enterpriseProtocalFileId' tappable (click)="presentActionSheet(enterpriseService.FILE_TYPE.admin, 'enterpriseProtocalFileId','enterpriseProtocalFilePath','hasProtocalFile')">
+            <i class="iconfont icon-icon-add"></i>
+            添加授权书（必填){{enterpriseObj.enterpriseProtocalFileId}}
+          </div>
+          <div class="file protocal-file" [hidden]='!enterpriseObj.enterpriseProtocalFileId'>
+            <img [src]="enterpriseObj.enterpriseProtocalFilePath" (click)="showImg(enterpriseObj.enterpriseProtocalFilePath)" tappable>
+            <i class="iconfont icon-clear" (click)="clearUpload('enterpriseProtocalFileId','enterpriseProtocalFilePath','hasProtocalFile')"></i>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="common-section" [navPush]="certificationMaterialPush" [navParams]='{qualificationList:qualificationList,enterpriseObj:enterpriseObj,formData:enterpriseForm.value,callback:initOnPop}'>
+        <ion-label stacked class="certification">
+          认证材料(选填)
+        </ion-label>
+        <div item-end>{{enterpriseObj.qualificationListNum?"已上传"+enterpriseObj.qualificationListNum+'个' : ''}}
+          <i class="iconfont icon-angle-right"></i>
+        </div>
+      </ion-item>
+      <ion-item class="common-section">
+        <ion-label stacked>
+          推荐人邀请码
+        </ion-label>
+        <ion-input placeholder="选填" maxlength='10' clearInput='true' formControlName="referrer"></ion-input>
+      </ion-item>
+    </form>
+    <div class="btn-wrap">
+      <button ion-button [disabled]="this.enterpriseForm.invalid || !enterpriseObj.enterpriseProtocalFileId || !enterpriseObj.creditFileId || requesting"
+        (click)="registerConfirm('WAIT')" type="button">确定注册</button>
+    </div>
+  </ng-container>
+  <ng-template #loadingBlock>
+    <div class="common-loading-block">
+      <ion-spinner class="loading" name="ios"></ion-spinner>
+    </div>
+  </ng-template>
+</ion-content>

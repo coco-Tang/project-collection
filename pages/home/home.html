@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-navbar hideBackButton="true">
+    <ul class="scroll-wrap clearfix">
+      <li class="item" [ngClass]="{'active': item.goodsCateId == params.goodsCateIdLevel3}" *ngFor="let item of followedList" (click)="toggleCategory(item.goodsCateId)"
+        tappable>
+        {{item.goodsCateName}}
+      </li>
+    </ul>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="gotoFollowPage()" tappable>
+        <i class="iconfont icon-add btn-follow"></i>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <!-- 搜索过滤 -->
+  <div class="content-picker">
+    <ion-grid class="picker-wrap">
+      <ion-row>
+        <ion-col col-6 (click)="openCityPicker(); toggleAnimation()" tappable>{{params.provinceName}}
+          <i class="iconfont icon-angle-left arrow"></i>
+        </ion-col>
+        <span class="line">|</span>
+        <ion-col col-6 (click)="toggleManufactureList()" tappable>
+          {{params.manufacturerName || '全部'}}
+          <i class="iconfont icon-angle-left arrow" [ngClass]="{'downward': showManufacturePicker}"></i>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- 厂商筛选 -->
+    <div class="dropdown-wrap">
+      <div class="back-drop" (click)="showManufacturePicker = false; toggleAnimation()" [ngClass]="{'toggleBackDrop': showManufacturePicker}"
+        tappable></div>
+      <ion-grid class="picker-list" [ngClass]="{'slide-down': useAnimation && showManufacturePicker, 'slide-up': useAnimation && !showManufacturePicker, 'slide-hidden': !useAnimation}">
+        <ion-row>
+          <ul class="manufacture-list clearfix">
+            <span class="text">厂商</span>
+            <li (click)="selectedManufacturerId = ''; selectedManufacturerName = ''" [ngClass]="{'active': selectedManufacturerId == ''}"
+              tappable>
+              全部
+            </li>
+            <li *ngFor="let item of manufactureList" (click)="selectManufacture(item.manufacturerId, item.manufacturerName)" [ngClass]="{'active': item.manufacturerId == selectedManufacturerId}"
+              tappable>
+              {{item.manufacturerName}}
+            </li>
+          </ul>
+        </ion-row>
+        <ion-row class="operations">
+          <li col-6 class="cancel" (click)="selectedManufacturerId = ''; selectedManufacturerName = ''" tappable>重置</li>
+          <li col-6 class="confirm" (click)="searchCategory()" tappable>确定</li>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+</ion-header>
+
+
+<ion-content no-bounce class="content-home" [ngClass]="{'stop-scroll': showManufacturePicker}">
+  <!-- 下拉刷新 -->
+  <ion-refresher class="refresher" (ionRefresh)="doRefresh()" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- 加载页面 -->
+  <div class="common-loading-block" *ngIf="isLoading && categoryList.length === 0">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+
+  <!-- 空页面 -->
+  <div class="common-empty-block" *ngIf="(categoryList.length === 0 || followedList.length === 0) && !isLoading">
+    <img src="assets/imgs/empty-page.png">
+    <span *ngIf="followedList.length === 0">点击右上角“+”，关注商品才会看到具体信息哦~</span>
+    <span *ngIf="categoryList.length === 0 && followedList.length > 0">暂无数据</span>
+  </div>
+
+  <!-- 开市闭市时间 -->
+  <div *ngIf="categoryList.length!=0 && !hideTips" class="operation-time">
+    {{operationTime}}
+    <i class="iconfont icon-circle-close close" (click)="closeTips()" tappable></i>
+  </div>
+
+  <!-- 商品列表 -->
+  <ion-item class="item-wrap common-resource-item-wrap" [navPush]="detailPage" [navParams]="item" *ngFor="let item of categoryList">
+    <div class="clearfix">
+      <ul class="item-start">
+        <li>
+          <span class="category-name">
+            {{item.goodsCateName}}
+            <span class="brand-name">{{item.trademarkName}}</span>
+          </span>
+        </li>
+        <li class="resource-tag-wrap">
+          <span class="resource-tag" *ngIf="item.manufacturerName">{{item.manufacturerName}}</span>
+          <span class="resource-tag" *ngIf="item.cansellNum">{{item.cansellNum}}{{item.uomName}}</span>
+          <span class="resource-tag">{{item.transactionType == TRANSACTION_REFERENCE[0].value ? TRANSACTION_REFERENCE[0].name : TRANSACTION_REFERENCE[1].name}}</span>
+          <span class="resource-tag" *ngIf="item.storeName">{{item.storeName}}</span>
+        </li>
+      </ul>
+      <ul class="item-end">
+        <li class="price">¥{{item.price}} / {{item.uomName}}</li>
+        <li class="price-text">参考报价</li>
+      </ul>
+    </div>
+    <div class="user-info-wrap clearfix">
+      <div class="user-info">
+        <img class="user-picture" [src]="item.logo? item.logo : 'assets/imgs/user.png'">
+        <span class="user-name">{{item.userName}}&nbsp;·</span>
+        <span class="company-name">&nbsp;{{item.enterpriseName}}</span>
+      </div>
+      <span class="effect-time" float-right>{{item.effectTime}}</span>
+    </div>
+  </ion-item>
+
+  <!-- 上拉加载 -->
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="categoryList.length > 0">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+    </ion-title>
+    <ion-buttons end>
+      <button clear class="enquiry-detail-resource" [navPush]="resourceDetailPage" [navParams]="orderDetail">
+        资源详情
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="order-detail" no-bounce>
+  <div class="common-loading-block" *ngIf="isLoading">
+    <ion-spinner class="loading" name="ios"></ion-spinner>
+  </div>
+  <ion-list class="order-detail-list" *ngIf="!isLoading && orderDetail">
+    <ion-item class="order-detail-item">
+      <ion-grid>
+        <ion-row class="detail-row-up">
+          <ion-col col-8 class="order-detail-name  auto-cut-word-two-line">
+            {{orderDetail.goodsCateName}}
+          </ion-col>
+          <ion-col col-4 class="order-detail-price">￥{{orderDetail.totalAmount}}</ion-col>
+        </ion-row>
+        <ion-row class="detail-row-down">
+          <ion-col col-10>
+            <span>{{orderDetail.trademarkName}}</span>
+            <span>现货</span>
+          </ion-col>
+          <ion-col col-2>{{orderDetail.orderStatus}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="order-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col>
+            <p class="label">购买数量</p>
+            <p class="value">{{orderDetail.totalResourceQuantity}}{{orderDetail.uomStr}}</p>
+          </ion-col>
+          <ion-col>
+            <p class="label">商品单价</p>
+            <p class="value">￥{{orderDetail.resourcePrice}}/{{orderDetail.uomStr}}</p>
+          </ion-col>
+          <ion-col>
+            <p class="label">商品总价</p>
+            <p class="value">￥{{orderDetail.totalAmount}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="order-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col>
+            <p class="label">付款方式</p>
+            <p class="value">{{orderDetail.payMode}}</p>
+          </ion-col>
+          <ion-col>
+            <p class="label">提货方式</p>
+            <p class="value">{{orderDetail.deliveryType}}</p>
+          </ion-col>
+          <ion-col>
+            <ng-container *ngIf="isMention">
+              <p class="label">仓库名称</p>
+              <p class="value">{{orderDetail.cargoAddressName}}</p>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="order-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col *ngIf="!isMention">
+            <p class="label">收获地址</p>
+            <p class="value">{{orderDetail.deliveryAddressName}}</p>
+          </ion-col>
+          <ion-col *ngIf="isMention">
+            <p class="label">仓库所在地</p>
+            <p class="value">{{orderDetail.cargoAddress}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+
+    <ion-item class="order-detail-item" *ngIf="orderDetail.userName || orderDetail.mobile">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col col-4 *ngIf="orderDetail.userName">
+            <p class="label">联系人</p>
+            <p class="value">{{orderDetail.userName}}</p>
+          </ion-col>
+          <ion-col *ngIf="orderDetail.mobile">
+            <p class="label">联系方式</p>
+            <p class="value">{{orderDetail.mobile}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item class="order-detail-item">
+      <ion-grid>
+        <ion-row class="rows">
+          <ion-col col-8>
+            <p class="label">买家</p>
+            <p class="value">{{orderDetail.buyerEntName}}</p>
+          </ion-col>
+          <ion-col col-4 *ngIf='orderDetail.deliveryTimes'>
+            <p class="label">提货期限</p>
+            <p class="value">{{orderDetail.deliveryTimes}}天</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <button ion-button block disabled>{{submitText}}</button>
+  </ion-list>
+</ion-content>

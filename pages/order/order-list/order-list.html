@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      订单
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content no-bounce>
+  <ion-refresher (ionRefresh)="doRefresh($event)" [pullMax]="2000" [snapbackDuration]="500" (ionPull)="doPull($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" pullingText="松开刷新" refreshingText="正在刷新"></ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngIf="loadDone || isInfinite; else loadingBlock">
+    <ng-container *ngIf="orderList.length > 0; else emptyBlocks">
+      <div class="order-wrap" *ngFor="let item of orderList" [navPush]="orderPush" [navParams]="{orderId:item.orderId}">
+        <p class="order-time">下单时间：{{item.createTime}}</p>
+        <ion-item class="order-info">
+          <div class="info-top">
+            <span class="category-name auto-cut-word-line">{{item.goodsCateName}}</span>
+            <span class="cate-name auto-cut-word-line">{{item.trademarkName}}</span>
+            <span class="price">¥{{item.totalAmount}}</span>
+          </div>
+          <div class="info-bottom">
+            <span class="provider" *ngIf="item.manufacturerName">{{item.manufacturerName}}</span>
+            <span class="total-num">{{item.totalResourceQuantity}}{{item.uom}}</span>
+            <span class="status">{{item.orderStatus}}</span>
+          </div>
+
+          <img class="arrow-right-icon" src="assets/imgs/home/arrow-right-primary.png">
+
+        </ion-item>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyBlocks>
+    <div class="common-empty-block">
+      <img src="assets/imgs/empty-page.png">
+      <span>暂无订单</span>
+    </div>
+  </ng-template>
+  <ng-template #loadingBlock>
+    <div class="common-loading-block">
+      <ion-spinner class="loading" name="ios"></ion-spinner>
+    </div>
+  </ng-template>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

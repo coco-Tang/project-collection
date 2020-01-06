@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      企业入住协议
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button type="button" *ngIf="navParams.data['sourcePage'] !== 'enterpriseList'" (click)='ignoreCreate()'>暂不创建</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="loadDone; else loadingBlock">
+    <div *ngIf="contents" class="protocol-wrap" [innerHTML]='contents|safeHtml'>
+    </div>
+  </ng-container>
+  <ng-template #loadingBlock>
+    <div class="common-loading-block">
+      <ion-spinner class="loading" name="ios"></ion-spinner>
+    </div>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <div class="btn-wrap">
+    <button ion-button (click)="goEnterprise()">已阅读并同意</button>
+  </div>
+</ion-footer>
